@@ -549,7 +549,7 @@ struct SMyUserFunctor : CTaskScheduler::SUserFunctor {
    /************************************************************/
    uint8_t UpdateRootedTree(uint8_t* un_RootedTree, uint8_t un_NumChildInfo){
       uint8_t un_OriginRootedTree[9]={5,2,2,1,0,2,2,4,0}; 
-      uint8_t un_UpdatedRootedTree[12]={5,2,2,1,2,0,2,2,2,4,2,0};
+      uint8_t un_UpdatedRootedTree[12]={5,2,2,1,2,0,2,2,4,2,0};
 
       uint8_t un_TreeLength = 0;
       uint8_t* un_pChildIndex = nullptr;
@@ -576,8 +576,8 @@ struct SMyUserFunctor : CTaskScheduler::SUserFunctor {
    uint8_t un_BlockIndex = 0;
    uint32_t LastQuerystamp = 0;
    uint32_t LastResponsestamp = 0;
-   //bool IsRoot = false;
-   bool IsRoot = true;
+   bool IsRoot = false;
+   //bool IsRoot = true;
    EBlockState m_eBlockState = EBlockState::Idle;
 
    uint8_t un_TopFaceIndex = 8;
@@ -638,6 +638,9 @@ struct SMyUserFunctor : CTaskScheduler::SUserFunctor {
                      else{
                         un_ColorType = 1;
                      }
+               }
+               if(un_branch_index == 1){
+                  un_ColorType = 1;
                }
                DecomposeRootedTree(un_ResBlockNodeBuffer, un_NumTreeInfo, un_ColorType);
             }
@@ -735,6 +738,7 @@ struct SMyUserFunctor : CTaskScheduler::SUserFunctor {
                }
                CHUARTController::GetInstance().Print(FONT_NORMAL "\r\n");
                break;
+               IsRoot = false;
             case '9':
                CHUARTController::GetInstance().Print(FONT_BOLD "%d: %d: %d", un_NumChildInfo, un_NumTreeInfo, sizeof(un_RootedTree));  
                CHUARTController::GetInstance().Print(FONT_NORMAL "\r\n");   
